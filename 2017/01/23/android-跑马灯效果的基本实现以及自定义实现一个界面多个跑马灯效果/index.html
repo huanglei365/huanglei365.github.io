@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="TextView,跑马灯," />
+  <meta name="keywords" content="TextView,marquee," />
 
 
 
@@ -92,7 +92,7 @@
 <meta property="og:site_name" content="做好一件事">
 <meta property="og:description" content="前言　　我相信很多人都在实现过Android的跑马灯效果，肯定也有很多人说一个界面不能实现多个跑马灯效果，其实我们通过很简单的方式就可以实现，下面介绍一个实现方式。
 单个跑马灯实现1234567891011&amp;lt;TextView 　　　android:layout_width=&quot;100px&quot; 　　　android:layout_height=&quot;wrap_content&quot; 　　　android:e">
-<meta property="og:updated_time" content="2017-01-23T03:40:29.150Z">
+<meta property="og:updated_time" content="2017-01-23T03:51:47.360Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content=" android 跑马灯效果的基本实现以及自定义实现一个界面多个跑马灯效果">
 <meta name="twitter:description" content="前言　　我相信很多人都在实现过Android的跑马灯效果，肯定也有很多人说一个界面不能实现多个跑马灯效果，其实我们通过很简单的方式就可以实现，下面介绍一个实现方式。
@@ -402,6 +402,7 @@
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>　　我相信很多人都在实现过Android的跑马灯效果，肯定也有很多人说一个界面不能实现多个跑马灯效果，其实我们通过很简单的方式就可以实现，下面介绍一个实现方式。</p>
 <h2 id="单个跑马灯实现"><a href="#单个跑马灯实现" class="headerlink" title="单个跑马灯实现"></a>单个跑马灯实现</h2><figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;TextView </div><div class="line">　　　android:<span class="attr">layout_width="100px"</span> </div><div class="line">　　　android:<span class="attr">layout_height="wrap_content"</span> </div><div class="line">　　　android:<span class="attr">ellipsize="marquee"</span> </div><div class="line">　　　android:<span class="attr">focusable="true"</span> </div><div class="line">　　　android:<span class="attr">singleLine="true"</span> </div><div class="line">　　　android:<span class="attr">marqueeRepeatLimit="marquee_forever"</span> </div><div class="line">　　　android:<span class="attr">focusableInTouchMode="true"</span> </div><div class="line">　　  android:<span class="attr">scrollHorizontally="true"</span> </div><div class="line">　　　android:<span class="attr">text="马灯效果"&gt;</span> </div><div class="line">　　&lt;/TextView&gt;</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>备注：<br>　　ellipsize=”marquee” :跑马灯效果<br>　　marqueeRepeatLimit:循环的次数<br>　　singleLine:如果不设置成单行，跑马灯也就没有了意义<br>　　至于为什么focusable设置为true，那是因为只有获得了焦点才能出现跑马灯的效果<br>　　更多的含义请参<a href="http://www.cnblogs.com/Gaojiecai/archive/2013/06/18/3142783.html" target="_blank" rel="external">跑马灯效果的总结 </a></p>
 <h2 id="一个界面多个跑马灯效果实现"><a href="#一个界面多个跑马灯效果实现" class="headerlink" title="一个界面多个跑马灯效果实现"></a>一个界面多个跑马灯效果实现</h2><p>　　想要实现一个界面多个跑马灯，就要现了解系统是如何实现以及在什么情况下会显示跑马灯效果．我们在TextView中发现以下源码（Api 23）：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">startMarquee</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// Do not ellipsize EditText</span></div><div class="line">        <span class="keyword">if</span> (getKeyListener() != <span class="keyword">null</span>) <span class="keyword">return</span>;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (compressText(getWidth() - getCompoundPaddingLeft() - getCompoundPaddingRight())) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> ((mMarquee == <span class="keyword">null</span> || mMarquee.isStopped()) &amp;&amp; (isFocused() || isSelected()) &amp;&amp;</div><div class="line">                getLineCount() == <span class="number">1</span> &amp;&amp; canMarquee()) &#123;</div><div class="line"></div><div class="line">            <span class="keyword">if</span> (mMarqueeFadeMode == MARQUEE_FADE_SWITCH_SHOW_ELLIPSIS) &#123;</div><div class="line">                mMarqueeFadeMode = MARQUEE_FADE_SWITCH_SHOW_FADE;</div><div class="line">                <span class="keyword">final</span> Layout tmp = mLayout;</div><div class="line">                mLayout = mSavedMarqueeModeLayout;</div><div class="line">                mSavedMarqueeModeLayout = tmp;</div><div class="line">                setHorizontalFadingEdgeEnabled(<span class="keyword">true</span>);</div><div class="line">                requestLayout();</div><div class="line">                invalidate();</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">if</span> (mMarquee == <span class="keyword">null</span>) mMarquee = <span class="keyword">new</span> Marquee(<span class="keyword">this</span>);</div><div class="line">            mMarquee.start(mMarqueeRepeatLimit);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
@@ -437,11 +438,27 @@
           
             <a href="/tags/TextView/" rel="tag"># TextView</a>
           
-            <a href="/tags/跑马灯/" rel="tag"># 跑马灯</a>
+            <a href="/tags/marquee/" rel="tag"># marquee</a>
           
         </div>
       
 
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/23/ubuntu上构建简单的基于http的文件共享服务/" rel="prev" title="ubuntu上构建简单的基于http的文件共享服务">
+                ubuntu上构建简单的基于http的文件共享服务 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
@@ -512,7 +529,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -521,7 +538,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -530,7 +547,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -84,19 +84,16 @@
 
 
 
-<meta name="description" content="随着H5在移动端的体验越来越好，越来越多的Android App开始采用Native+H5进行混合开发！极大的提高了开发效率！最近公司在做一个新闻阅读的模块，由于我们没有资源，所以选择了第三方Url接入方式．在开发的过程中，需要用到WebView　Cookie的设置！下面详细的说明WebView Cookie机制．
-Cookie机制?　　众所周知，HTTP协议是一种无状态的协议，一旦数据交换完成，">
+<meta name="description" content="随着H5在移动端的体验越来越好，越来越多的Android App开始采用Native+H5进行混合开发！极大的提高了开发效率！最近公司在做一个新闻阅读的模块，由于我们没有资源，所以选择了第三方Url接入方式．在开发的过程中，需要用到WebView　Cookie的设置！下面详细的说明WebView Cookie机制．">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android WebView Cookie机制详解">
 <meta property="og:url" content="http://yoursite.com/2017/01/23/Android-WebView-Cookie机制详解/index.html">
 <meta property="og:site_name" content="做好一件事">
-<meta property="og:description" content="随着H5在移动端的体验越来越好，越来越多的Android App开始采用Native+H5进行混合开发！极大的提高了开发效率！最近公司在做一个新闻阅读的模块，由于我们没有资源，所以选择了第三方Url接入方式．在开发的过程中，需要用到WebView　Cookie的设置！下面详细的说明WebView Cookie机制．
-Cookie机制?　　众所周知，HTTP协议是一种无状态的协议，一旦数据交换完成，">
-<meta property="og:updated_time" content="2017-01-23T09:19:06.601Z">
+<meta property="og:description" content="随着H5在移动端的体验越来越好，越来越多的Android App开始采用Native+H5进行混合开发！极大的提高了开发效率！最近公司在做一个新闻阅读的模块，由于我们没有资源，所以选择了第三方Url接入方式．在开发的过程中，需要用到WebView　Cookie的设置！下面详细的说明WebView Cookie机制．">
+<meta property="og:updated_time" content="2017-01-24T02:50:28.715Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android WebView Cookie机制详解">
-<meta name="twitter:description" content="随着H5在移动端的体验越来越好，越来越多的Android App开始采用Native+H5进行混合开发！极大的提高了开发效率！最近公司在做一个新闻阅读的模块，由于我们没有资源，所以选择了第三方Url接入方式．在开发的过程中，需要用到WebView　Cookie的设置！下面详细的说明WebView Cookie机制．
-Cookie机制?　　众所周知，HTTP协议是一种无状态的协议，一旦数据交换完成，">
+<meta name="twitter:description" content="随着H5在移动端的体验越来越好，越来越多的Android App开始采用Native+H5进行混合开发！极大的提高了开发效率！最近公司在做一个新闻阅读的模块，由于我们没有资源，所以选择了第三方Url接入方式．在开发的过程中，需要用到WebView　Cookie的设置！下面详细的说明WebView Cookie机制．">
 
 
 
@@ -400,13 +397,13 @@ Cookie机制?　　众所周知，HTTP协议是一种无状态的协议，一旦
       
 
       
-        <p>随着H5在移动端的体验越来越好，越来越多的Android App开始采用Native+H5进行混合开发！极大的提高了开发效率！最近公司在做一个新闻阅读的模块，由于我们没有资源，所以选择了第三方Url接入方式．在开发的过程中，需要用到WebView　Cookie的设置！下面详细的说明WebView Cookie机制．</p>
-<h2 id="Cookie机制"><a href="#Cookie机制" class="headerlink" title="Cookie机制?"></a>Cookie机制?</h2><p>　　众所周知，HTTP协议是一种无状态的协议，一旦数据交换完成，客户端与服务端的连接就会关闭，如果需要再次交换数据，就需要再次联立连接，导致服务端无法跟踪上次的会话！Cookie机制是一种会话跟踪的技术，通过在客户端记录信息用以确定用户身份！<br>  <a id="more"></a><br>　　Cookie其实就是服务器用于确认客户端身份给客户端的信息，下次客户端请求时带上Cookie信息，服务器就可以根据Cookie确定用户信息进而进行个性化处理！<br>  　　Cookie的属性包括Key，Value，MaxAge，Path等等，关于具体的属性信息请参考：[Android HttpCookie信息][1]<br>  　　注意：为了保证用户的信息安全，Cookie是不可跨域名的！Cookie在客户端是由浏览器管理的，访问baidu.com的域名不会携带google.com的Cookie!</p>
+        <p>随着H5在移动端的体验越来越好，越来越多的Android App开始采用Native+H5进行混合开发！极大的提高了开发效率！最近公司在做一个新闻阅读的模块，由于我们没有资源，所以选择了第三方Url接入方式．在开发的过程中，需要用到WebView　Cookie的设置！下面详细的说明WebView Cookie机制．<br> <a id="more"></a></p>
+<h2 id="Cookie机制"><a href="#Cookie机制" class="headerlink" title="Cookie机制?"></a>Cookie机制?</h2><p>　　众所周知，HTTP协议是一种无状态的协议，一旦数据交换完成，客户端与服务端的连接就会关闭，如果需要再次交换数据，就需要再次联立连接，导致服务端无法跟踪上次的会话！Cookie机制是一种会话跟踪的技术，通过在客户端记录信息用以确定用户身份！<br>　　Cookie其实就是服务器用于确认客户端身份给客户端的信息，下次客户端请求时带上Cookie信息，服务器就可以根据Cookie确定用户信息进而进行个性化处理！<br>  　　Cookie的属性包括Key，Value，MaxAge，Path等等，关于具体的属性信息请参考：[Android HttpCookie信息][1]<br>  　　注意：为了保证用户的信息安全，Cookie是不可跨域名的！Cookie在客户端是由浏览器管理的，访问baidu.com的域名不会携带google.com的Cookie!</p>
 <h2 id="如何给Android中的WebView设置Cookie信息？"><a href="#如何给Android中的WebView设置Cookie信息？" class="headerlink" title="如何给Android中的WebView设置Cookie信息？"></a>如何给Android中的WebView设置Cookie信息？</h2><ol>
 <li><p>涉及到的主要类及介绍<br>其中主要涉及到CookieSyncManager和CookieManager两个类！<br>CookieSyncManager：顾名思义就是浏览器Cookie在内存和永久性存储器之间的同步类（The CookieSyncManager is used to synchronize the browser cookie store between RAM and permanent storage），其中包括startSync(),stopSync(),sync()(强制同步)等方法；（注意：Api 21已废除，通过CookieManager进行自动同步）<br>CookieManager：管理WebView Cookie的类，其中包括setCookie(),getCookie()等等方法．</p>
 </li>
 <li><p>获取Cookie和给WebView设置Cookie<br>获取Cookie比较简单，直接调用CookieManager.getInstance().getCookie(url)即可获得；<br>设置Cookie在webView实例对象调用loadUrl方式之前调用如下函数即可．</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">　　　　<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">syncCookie</span><span class="params">(Context context, String url, HashMap&lt;String, String&gt; cookies)</span> </span>&#123;</div><div class="line">	<span class="keyword">if</span> (Build.VERSION.SDK_INT &lt; Build.VERSION_CODES.LOLLIPOP) &#123;</div><div class="line">		CookieSyncManager.createInstance(context);</div><div class="line">	&#125;</div><div class="line">	CookieManager cookieManager = CookieManager.getInstance();</div><div class="line">	Iterator iterator = cookies.entrySet().iterator();</div><div class="line">	<span class="keyword">while</span> (iterator.hasNext()) &#123;</div><div class="line">		Map.Entry entry = (Map.Entry) iterator.next();</div><div class="line">		cookieManager.setCookie(url, entry.getValue() + <span class="string">"="</span> + entry.getKey());</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">　　　　public static void syncCookie(Context context, String url, HashMap&lt;String, String&gt; cookies) &#123;</div><div class="line">	if (Build.VERSION.SDK_INT &lt; Build.VERSION_CODES.LOLLIPOP) &#123;</div><div class="line">		CookieSyncManager.createInstance(context);</div><div class="line">	&#125;</div><div class="line">	CookieManager cookieManager = CookieManager.getInstance();</div><div class="line">	Iterator iterator = cookies.entrySet().iterator();</div><div class="line">	while (iterator.hasNext()) &#123;</div><div class="line">		Map.Entry entry = (Map.Entry) iterator.next();</div><div class="line">		cookieManager.setCookie(url, entry.getValue() + &quot;=&quot; + entry.getKey());</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ol>
 <h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><p>主要使用在，服务端需要客户端的数据以确定客户身份的情况！比如：登录同步(我们通过HttpUrlConnection获得的Cookie设置给WebView就可以实现登录同步了)等等，还有许多应用需要你去发掘…</p>
@@ -453,6 +450,10 @@ Cookie机制?　　众所周知，HTTP协议是一种无状态的协议，一旦
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/24/带你彻底理解java中的-、equal、hashCode/" rel="prev" title="带你彻底理解java中的==、equal、hashCode">
+                带你彻底理解java中的==、equal、hashCode <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -526,7 +527,7 @@ Cookie机制?　　众所周知，HTTP协议是一种无状态的协议，一旦
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -535,7 +536,7 @@ Cookie机制?　　众所周知，HTTP协议是一种无状态的协议，一旦
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -544,7 +545,7 @@ Cookie机制?　　众所周知，HTTP协议是一种无状态的协议，一旦
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

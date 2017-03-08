@@ -1,0 +1,782 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hotfix,Andfix," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="很多小伙伴可能还在为一个紧急bug头痛，又要因为一行代码发新版本了，不仅仅浪费用户流量，还让用户感到我们的产品不靠谱，对双方都是一个损失！我们能不能避免这个损失呢？当然可以了，要不然我也不在这(bi)里(bi)了。我们的解决方案是热修复技术，接下来我们就详细的介绍下热修复技术在android中的使用，本文中使用的是阿里巴巴的热修复方案：Andfix！
+热修复和为何选择Andfix">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android热修复技能Andfix">
+<meta property="og:url" content="http://yoursite.com/2017/03/08/android热修复技能Andfix/index.html">
+<meta property="og:site_name" content="做好一件事">
+<meta property="og:description" content="很多小伙伴可能还在为一个紧急bug头痛，又要因为一行代码发新版本了，不仅仅浪费用户流量，还让用户感到我们的产品不靠谱，对双方都是一个损失！我们能不能避免这个损失呢？当然可以了，要不然我也不在这(bi)里(bi)了。我们的解决方案是热修复技术，接下来我们就详细的介绍下热修复技术在android中的使用，本文中使用的是阿里巴巴的热修复方案：Andfix！
+热修复和为何选择Andfix">
+<meta property="og:image" content="http://yoursite.com/./../images/compare_hotfix.png">
+<meta property="og:updated_time" content="2017-03-08T09:36:40.168Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="android热修复技能Andfix">
+<meta name="twitter:description" content="很多小伙伴可能还在为一个紧急bug头痛，又要因为一行代码发新版本了，不仅仅浪费用户流量，还让用户感到我们的产品不靠谱，对双方都是一个损失！我们能不能避免这个损失呢？当然可以了，要不然我也不在这(bi)里(bi)了。我们的解决方案是热修复技术，接下来我们就详细的介绍下热修复技术在android中的使用，本文中使用的是阿里巴巴的热修复方案：Andfix！
+热修复和为何选择Andfix">
+<meta name="twitter:image" content="http://yoursite.com/./../images/compare_hotfix.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/03/08/android热修复技能Andfix/"/>
+
+
+
+
+
+  <title> android热修复技能Andfix | 做好一件事 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">做好一件事</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'gh1bm9kd-QuHPTmqab_i','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/08/android热修复技能Andfix/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="黄磊">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="做好一件事">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="做好一件事" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                android热修复技能Andfix
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-08T10:28:13+08:00">
+                2017-03-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/08/android热修复技能Andfix/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/08/android热修复技能Andfix/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　很多小伙伴可能还在为一个紧急bug头痛，又要因为一行代码发新版本了，不仅仅浪费用户流量，还让用户感到我们的产品不靠谱，对双方都是一个损失！我们能不能避免这个损失呢？当然可以了，要不然我也不在这(bi)里(bi)了。我们的解决方案是热修复技术，接下来我们就详细的介绍下热修复技术在android中的使用，本文中使用的是阿里巴巴的热修复方案：Andfix！</p>
+<h2 id="热修复和为何选择Andfix"><a href="#热修复和为何选择Andfix" class="headerlink" title="热修复和为何选择Andfix"></a>热修复和为何选择Andfix</h2><a id="more"></a>
+<blockquote>
+<p>热修复：当线上应用出现紧急BUG，为了避免重新发版，并且保证修复的及时性而进行的一项在线推送补丁的修复方案。</p>
+</blockquote>
+<p>　　当前业界比较热门的热修复方案好几种，比如腾讯QQ空间的超级补丁、微信的Tinker和阿里百川的Andfix，那么为何我们要选择Andfix呢？当然是基于Andfix的几个优点了，Andfix有以下几个优点让你无法抗拒：</p>
+<ol>
+<li><p>BUG修复的即时性</p>
+</li>
+<li><p>补丁包同样采用差量技术，生成的PATCH体积小</p>
+</li>
+<li><p>对应用无侵入，几乎无性能损耗</p>
+</li>
+</ol>
+<p>为了让大家对热修复方案有更加直观的比较，下面借用一张图来说明问题：<br>　　<img src="./../images/compare_hotfix.png" alt="热修复方案的比较"><br>看完之后明白了吧，请放心的使用Andfix吧！</p>
+<h2 id="快速集成Andfix"><a href="#快速集成Andfix" class="headerlink" title="快速集成Andfix"></a>快速集成Andfix</h2><h3 id="添加依赖包"><a href="#添加依赖包" class="headerlink" title="添加依赖包"></a>添加依赖包</h3><p>对于Android studio开发者，gradle配置文件下添加以下依赖即可：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="section">dependencies</span> &#123;</div><div class="line">    <span class="attribute">compile</span> <span class="string">'com.alipay.euler:andfix:0.4.0<span class="variable">@aar</span>'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>建议大家使用0.4.0版本号，因为最新的0.5.0十分不稳定，bug很多！请参考<a href="https://github.com/alibaba/AndFix/issues" target="_blank" rel="external">Andfix issues</a><br>对于Eclipse开发者，请自行解决！</p>
+<h3 id="初始化PatchManager"><a href="#初始化PatchManager" class="headerlink" title="初始化PatchManager"></a>初始化PatchManager</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">patchManager = <span class="keyword">new</span> PatchManager(context);</div><div class="line">patchManager.init(appversion);<span class="comment">//当前打patch的版本号</span></div></pre></td></tr></table></figure>
+<p>关于appversion这个参数，可以使用versionCode+”-“+versionName+补丁的URL的MD5值作为关键字，这样同一个版本我们可以打多个补丁！另外每次打patch时记录appversion值，下次下载patch前，先判断patch是否已经打过，避免多次下载补丁（节省流量）！<br>另外调用init时，如果当前appversion和以前打补丁的appversion不一样，PatchManager恵自动帮你clean掉以前已经加载的patch，所以不用担心patch文件会积累的问题！init(appversion)如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(String appVersion)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span>(!<span class="keyword">this</span>.mPatchDir.exists() &amp;&amp; !<span class="keyword">this</span>.mPatchDir.mkdirs()) &#123;</div><div class="line">        Log.e(<span class="string">"PatchManager"</span>, <span class="string">"patch dir create error."</span>);</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(!<span class="keyword">this</span>.mPatchDir.isDirectory()) &#123;</div><div class="line">        <span class="keyword">this</span>.mPatchDir.delete();</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        SharedPreferences sp = <span class="keyword">this</span>.mContext.getSharedPreferences(<span class="string">"_andfix_"</span>, <span class="number">0</span>);</div><div class="line">        String ver = sp.getString(<span class="string">"version"</span>, (String)<span class="keyword">null</span>);</div><div class="line">        <span class="keyword">if</span>(ver != <span class="keyword">null</span> &amp;&amp; ver.equalsIgnoreCase(appVersion)) &#123;</div><div class="line">            <span class="keyword">this</span>.initPatchs();</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">this</span>.cleanPatch();</div><div class="line">            sp.edit().putString(<span class="string">"version"</span>, appVersion).commit();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="加载patch"><a href="#加载patch" class="headerlink" title="加载patch"></a>加载patch</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">patchManager.loadPatch();</div></pre></td></tr></table></figure>
+<p>我们应该尽可能早的去加载patch，避免bug引起程序崩溃！建议在Application的onCreate方法时调用！<br>注意：loadPatch()方法一定要在主线程中调用，在非主线程调用会引起崩溃，还会导致patch不能立即生效，只有重启应用才会生效！</p>
+<h3 id="增加patch"><a href="#增加patch" class="headerlink" title="增加patch"></a>增加patch</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">patchManager.addPatch(path);<span class="comment">//下载后patch的本地路径,不是patch的下载路径</span></div></pre></td></tr></table></figure>
+<p>调用此方法后，patch立即生效！注意请在主线程中调用。</p>
+<h3 id="关于patch生成和下载，请参考以下方案！"><a href="#关于patch生成和下载，请参考以下方案！" class="headerlink" title="关于patch生成和下载，请参考以下方案！"></a>关于patch生成和下载，请参考以下方案！</h3><h4 id="patch生成"><a href="#patch生成" class="headerlink" title="patch生成"></a>patch生成</h4><p>阿里百川提供了工具，可以在两个apk间直接生成.apatch文件，apkpatch工具点击<a href="https://github.com/alibaba/AndFix/raw/master/tools/apkpatch-1.0.3.zip" target="_blank" rel="external">下载</a>，关于工具的使用和参数的含义如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">usage: apkpatch -f &lt;<span class="keyword">new</span>&gt; -t &lt;old&gt; -o &lt;output&gt; -k &lt;keystore&gt; -p &lt;***&gt; -a &lt;alias&gt; -e &lt;***&gt;</div><div class="line"> -a,--alias &lt;alias&gt;     keystore  别名.</div><div class="line"> -e,--epassword &lt;***&gt;   keystore entry 密码.</div><div class="line"> -f,--from &lt;loc&gt;        修复bug后的apk路径.</div><div class="line"> -k,--keystore &lt;loc&gt;    keystore 路径.</div><div class="line"> -n,--name &lt;name&gt;       生成patch的文件名.</div><div class="line"> -o,--out &lt;dir&gt;         输出目录.</div><div class="line"> -p,--kpassword &lt;***&gt;   keystore 密码.</div><div class="line"> -t,--to &lt;loc&gt;          存在bug的apk路径.</div></pre></td></tr></table></figure>
+<p>注意：工具里有apkpatch.sh和apkpatch.bat文件，分别供linux（mac）和windows使用，命令运行成功后，会在输出目录里生成.apatch的文件！这个文件就是我们app所用的patch文件！</p>
+<h4 id="如何判断此版本需要打补丁，以及打哪个补丁？"><a href="#如何判断此版本需要打补丁，以及打哪个补丁？" class="headerlink" title="如何判断此版本需要打补丁，以及打哪个补丁？"></a>如何判断此版本需要打补丁，以及打哪个补丁？</h4><p>方案1：可以让后台提供一个接口：app通过传递版本信息，获得当前版本的patch信息，根据信息去下载相应的patch文件；<br>方案2：可以通过在云服务器上上传一个.json的文件（文件名跟版本信息相关），文件内容为patch信息，app根据当前的版本信息去请求相应的文件，即可获得patch信息，去下载相应的文件（当前我们app使用的方案）。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>1.热修复不用发版本就可以及时的修复bug;<br>2.使用轻量级Andfix，可以在应用不重启的情况下达到修复bug的目的，但是功能比较简单，只能更改简单的方法，不能添加类，更不能更改资源等等<br>3.loadPatch()和addPatch(String path)一定要在主线程中调用，要不然可能出现崩溃问题和不能立即生效的问题（可能是部分机型）！<br>4.建议使用0.4.0版本，因为最新的0.5.0版本很不稳定，兼容性也不是特别好！</p>
+<p>参考：<br>　　  <a href="https://github.com/alibaba/AndFix" target="_blank" rel="external">https://github.com/alibaba/AndFix</a><br>　　  <a href="http://www.chinaz.com/news/2016/0912/579753.shtml" target="_blank" rel="external">http://www.chinaz.com/news/2016/0912/579753.shtml</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hotfix/" rel="tag"># Hotfix</a>
+          
+            <a href="/tags/Andfix/" rel="tag"># Andfix</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/25/2016年度总结/" rel="next" title="2016年度总结">
+                <i class="fa fa-chevron-left"></i> 2016年度总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/03/08/android热修复技能Andfix/"
+           data-title="android热修复技能Andfix" data-url="http://yoursite.com/2017/03/08/android热修复技能Andfix/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="黄磊" />
+          <p class="site-author-name" itemprop="name">黄磊</p>
+          <p class="site-description motion-element" itemprop="description">一个人，一件事，一辈子...</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/huanglei365" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#热修复和为何选择Andfix"><span class="nav-number">1.</span> <span class="nav-text">热修复和为何选择Andfix</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速集成Andfix"><span class="nav-number">2.</span> <span class="nav-text">快速集成Andfix</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加依赖包"><span class="nav-number">2.1.</span> <span class="nav-text">添加依赖包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化PatchManager"><span class="nav-number">2.2.</span> <span class="nav-text">初始化PatchManager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载patch"><span class="nav-number">2.3.</span> <span class="nav-text">加载patch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加patch"><span class="nav-number">2.4.</span> <span class="nav-text">增加patch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于patch生成和下载，请参考以下方案！"><span class="nav-number">2.5.</span> <span class="nav-text">关于patch生成和下载，请参考以下方案！</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#patch生成"><span class="nav-number">2.5.1.</span> <span class="nav-text">patch生成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何判断此版本需要打补丁，以及打哪个补丁？"><span class="nav-number">2.5.2.</span> <span class="nav-text">如何判断此版本需要打补丁，以及打哪个补丁？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">黄磊</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"huanglei365"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

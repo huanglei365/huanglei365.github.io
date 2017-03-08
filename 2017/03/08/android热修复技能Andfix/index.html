@@ -87,18 +87,18 @@
 <meta name="description" content="很多小伙伴可能还在为一个紧急bug头痛，又要因为一行代码发新版本了，不仅仅浪费用户流量，还让用户感到我们的产品不靠谱，对双方都是一个损失！我们能不能避免这个损失呢？当然可以了，要不然我也不在这(bi)里(bi)了。我们的解决方案是热修复技术，接下来我们就详细的介绍下热修复技术在android中的使用，本文中使用的是阿里巴巴的热修复方案：Andfix！
 热修复和为何选择Andfix">
 <meta property="og:type" content="article">
-<meta property="og:title" content="android热修复技能Andfix">
-<meta property="og:url" content="http://yoursite.com/2017/03/08/android热修复技能Andfix/index.html">
+<meta property="og:title" content="Android热修复技能Andfix">
+<meta property="og:url" content="http://huanglei365.com/2017/03/08/android热修复技能Andfix/index.html">
 <meta property="og:site_name" content="做好一件事">
 <meta property="og:description" content="很多小伙伴可能还在为一个紧急bug头痛，又要因为一行代码发新版本了，不仅仅浪费用户流量，还让用户感到我们的产品不靠谱，对双方都是一个损失！我们能不能避免这个损失呢？当然可以了，要不然我也不在这(bi)里(bi)了。我们的解决方案是热修复技术，接下来我们就详细的介绍下热修复技术在android中的使用，本文中使用的是阿里巴巴的热修复方案：Andfix！
 热修复和为何选择Andfix">
-<meta property="og:image" content="http://yoursite.com/./../images/compare_hotfix.png">
-<meta property="og:updated_time" content="2017-03-08T09:36:40.168Z">
+<meta property="og:image" content="http://huanglei365.com/images/compare_hotfix.png">
+<meta property="og:updated_time" content="2017-03-08T10:17:27.344Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="android热修复技能Andfix">
+<meta name="twitter:title" content="Android热修复技能Andfix">
 <meta name="twitter:description" content="很多小伙伴可能还在为一个紧急bug头痛，又要因为一行代码发新版本了，不仅仅浪费用户流量，还让用户感到我们的产品不靠谱，对双方都是一个损失！我们能不能避免这个损失呢？当然可以了，要不然我也不在这(bi)里(bi)了。我们的解决方案是热修复技术，接下来我们就详细的介绍下热修复技术在android中的使用，本文中使用的是阿里巴巴的热修复方案：Andfix！
 热修复和为何选择Andfix">
-<meta name="twitter:image" content="http://yoursite.com/./../images/compare_hotfix.png">
+<meta name="twitter:image" content="http://huanglei365.com/images/compare_hotfix.png">
 
 
 
@@ -126,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/03/08/android热修复技能Andfix/"/>
+  <link rel="canonical" href="http://huanglei365.com/2017/03/08/android热修复技能Andfix/"/>
 
 
 
 
 
-  <title> android热修复技能Andfix | 做好一件事 </title>
+  <title> Android热修复技能Andfix | 做好一件事 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -295,7 +295,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/08/android热修复技能Andfix/">
+  <link itemprop="mainEntityOfPage" href="http://huanglei365.com/2017/03/08/android热修复技能Andfix/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="黄磊">
@@ -319,7 +319,7 @@
             
             
               
-                android热修复技能Andfix
+                Android热修复技能Andfix
               
             
           </h1>
@@ -416,7 +416,7 @@
 <li><p>对应用无侵入，几乎无性能损耗</p>
 </li>
 </ol>
-<p>为了让大家对热修复方案有更加直观的比较，下面借用一张图来说明问题：<br>　　<img src="./../images/compare_hotfix.png" alt="热修复方案的比较"><br>看完之后明白了吧，请放心的使用Andfix吧！</p>
+<p>为了让大家对热修复方案有更加直观的比较，下面借用一张图来说明问题：<br>　　<img src="/images/compare_hotfix.png" alt="热修复方案的比较"><br>看完之后明白了吧，请放心的使用Andfix吧！</p>
 <h2 id="快速集成Andfix"><a href="#快速集成Andfix" class="headerlink" title="快速集成Andfix"></a>快速集成Andfix</h2><h3 id="添加依赖包"><a href="#添加依赖包" class="headerlink" title="添加依赖包"></a>添加依赖包</h3><p>对于Android studio开发者，gradle配置文件下添加以下依赖即可：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="section">dependencies</span> &#123;</div><div class="line">    <span class="attribute">compile</span> <span class="string">'com.alipay.euler:andfix:0.4.0<span class="variable">@aar</span>'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>建议大家使用0.4.0版本号，因为最新的0.5.0十分不稳定，bug很多！请参考<a href="https://github.com/alibaba/AndFix/issues" target="_blank" rel="external">Andfix issues</a><br>对于Eclipse开发者，请自行解决！</p>
 <h3 id="初始化PatchManager"><a href="#初始化PatchManager" class="headerlink" title="初始化PatchManager"></a>初始化PatchManager</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">patchManager = <span class="keyword">new</span> PatchManager(context);</div><div class="line">patchManager.init(appversion);<span class="comment">//当前打patch的版本号</span></div></pre></td></tr></table></figure>
@@ -501,7 +501,7 @@
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2017/03/08/android热修复技能Andfix/"
-           data-title="android热修复技能Andfix" data-url="http://yoursite.com/2017/03/08/android热修复技能Andfix/">
+           data-title="Android热修复技能Andfix" data-url="http://huanglei365.com/2017/03/08/android热修复技能Andfix/">
       </div>
     
   </div>

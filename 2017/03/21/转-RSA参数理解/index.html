@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="WebView,Cookie," />
+  <meta name="keywords" content="RSA," />
 
 
 
@@ -84,16 +84,16 @@
 
 
 
-<meta name="description" content="随着H5在移动端的体验越来越好，越来越多的Android App开始采用Native+H5进行混合开发！极大的提高了开发效率！最近公司在做一个新闻阅读的模块，由于我们没有资源，所以选择了第三方Url接入方式．在开发的过程中，需要用到WebView　Cookie的设置！下面详细的说明WebView Cookie机制．">
+<meta name="description" content="一、密钥长度1、密钥是指谁？　　首先我们说的“密钥”是指谁？由于RSA密钥是（公钥+模值）、（私钥+模值）分组分发的，单独给对方一个公钥或私钥是没有任何用处，所以我们说的“密钥”其实是它们两者中的其中一组。但我们说的“密钥长度”一般只是指模值的位长度。目前主流可选值：1024、2048、3072、4096…">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android WebView Cookie机制详解">
-<meta property="og:url" content="http://huanglei365.com/2017/01/23/Android-WebView-Cookie机制详解/index.html">
+<meta property="og:title" content="(转)RSA密钥长度、明文长度和密文长度">
+<meta property="og:url" content="http://huanglei365.com/2017/03/21/转-RSA参数理解/index.html">
 <meta property="og:site_name" content="做好一件事">
-<meta property="og:description" content="随着H5在移动端的体验越来越好，越来越多的Android App开始采用Native+H5进行混合开发！极大的提高了开发效率！最近公司在做一个新闻阅读的模块，由于我们没有资源，所以选择了第三方Url接入方式．在开发的过程中，需要用到WebView　Cookie的设置！下面详细的说明WebView Cookie机制．">
-<meta property="og:updated_time" content="2017-01-24T02:50:28.715Z">
+<meta property="og:description" content="一、密钥长度1、密钥是指谁？　　首先我们说的“密钥”是指谁？由于RSA密钥是（公钥+模值）、（私钥+模值）分组分发的，单独给对方一个公钥或私钥是没有任何用处，所以我们说的“密钥”其实是它们两者中的其中一组。但我们说的“密钥长度”一般只是指模值的位长度。目前主流可选值：1024、2048、3072、4096…">
+<meta property="og:updated_time" content="2017-03-21T10:41:31.533Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android WebView Cookie机制详解">
-<meta name="twitter:description" content="随着H5在移动端的体验越来越好，越来越多的Android App开始采用Native+H5进行混合开发！极大的提高了开发效率！最近公司在做一个新闻阅读的模块，由于我们没有资源，所以选择了第三方Url接入方式．在开发的过程中，需要用到WebView　Cookie的设置！下面详细的说明WebView Cookie机制．">
+<meta name="twitter:title" content="(转)RSA密钥长度、明文长度和密文长度">
+<meta name="twitter:description" content="一、密钥长度1、密钥是指谁？　　首先我们说的“密钥”是指谁？由于RSA密钥是（公钥+模值）、（私钥+模值）分组分发的，单独给对方一个公钥或私钥是没有任何用处，所以我们说的“密钥”其实是它们两者中的其中一组。但我们说的“密钥长度”一般只是指模值的位长度。目前主流可选值：1024、2048、3072、4096…">
 
 
 
@@ -121,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://huanglei365.com/2017/01/23/Android-WebView-Cookie机制详解/"/>
+  <link rel="canonical" href="http://huanglei365.com/2017/03/21/转-RSA参数理解/"/>
 
 
 
 
 
-  <title> Android WebView Cookie机制详解 | 做好一件事 </title>
+  <title> (转)RSA密钥长度、明文长度和密文长度 | 做好一件事 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -290,7 +290,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://huanglei365.com/2017/01/23/Android-WebView-Cookie机制详解/">
+  <link itemprop="mainEntityOfPage" href="http://huanglei365.com/2017/03/21/转-RSA参数理解/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="黄磊">
@@ -314,7 +314,7 @@
             
             
               
-                Android WebView Cookie机制详解
+                (转)RSA密钥长度、明文长度和密文长度
               
             
           </h1>
@@ -329,8 +329,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-23T17:18:03+08:00">
-                2017-01-23
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-21T17:15:19+08:00">
+                2017-03-21
               </time>
             
 
@@ -352,8 +352,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -370,8 +370,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/01/23/Android-WebView-Cookie机制详解/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/23/Android-WebView-Cookie机制详解/" itemprop="commentCount"></span>
+                <a href="/2017/03/21/转-RSA参数理解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/21/转-RSA参数理解/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -397,16 +397,9 @@
       
 
       
-        <p>随着H5在移动端的体验越来越好，越来越多的Android App开始采用Native+H5进行混合开发！极大的提高了开发效率！最近公司在做一个新闻阅读的模块，由于我们没有资源，所以选择了第三方Url接入方式．在开发的过程中，需要用到WebView　Cookie的设置！下面详细的说明WebView Cookie机制．<br> <a id="more"></a></p>
-<h2 id="Cookie机制"><a href="#Cookie机制" class="headerlink" title="Cookie机制?"></a>Cookie机制?</h2><p>　　众所周知，HTTP协议是一种无状态的协议，一旦数据交换完成，客户端与服务端的连接就会关闭，如果需要再次交换数据，就需要再次联立连接，导致服务端无法跟踪上次的会话！Cookie机制是一种会话跟踪的技术，通过在客户端记录信息用以确定用户身份！<br>　　Cookie其实就是服务器用于确认客户端身份给客户端的信息，下次客户端请求时带上Cookie信息，服务器就可以根据Cookie确定用户信息进而进行个性化处理！<br>  　　Cookie的属性包括Key，Value，MaxAge，Path等等，关于具体的属性信息请参考：[Android HttpCookie信息][1]<br>  　　注意：为了保证用户的信息安全，Cookie是不可跨域名的！Cookie在客户端是由浏览器管理的，访问baidu.com的域名不会携带google.com的Cookie!</p>
-<h2 id="如何给Android中的WebView设置Cookie信息？"><a href="#如何给Android中的WebView设置Cookie信息？" class="headerlink" title="如何给Android中的WebView设置Cookie信息？"></a>如何给Android中的WebView设置Cookie信息？</h2><ol>
-<li><p>涉及到的主要类及介绍<br>其中主要涉及到CookieSyncManager和CookieManager两个类！<br>CookieSyncManager：顾名思义就是浏览器Cookie在内存和永久性存储器之间的同步类（The CookieSyncManager is used to synchronize the browser cookie store between RAM and permanent storage），其中包括startSync(),stopSync(),sync()(强制同步)等方法；（注意：Api 21已废除，通过CookieManager进行自动同步）<br>CookieManager：管理WebView Cookie的类，其中包括setCookie(),getCookie()等等方法．</p>
-</li>
-<li><p>获取Cookie和给WebView设置Cookie<br>获取Cookie比较简单，直接调用CookieManager.getInstance().getCookie(url)即可获得；<br>设置Cookie在webView实例对象调用loadUrl方式之前调用如下函数即可．</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">　　　　public static void syncCookie(Context context, String url, HashMap&lt;String, String&gt; cookies) &#123;</div><div class="line">	if (Build.VERSION.SDK_INT &lt; Build.VERSION_CODES.LOLLIPOP) &#123;</div><div class="line">		CookieSyncManager.createInstance(context);</div><div class="line">	&#125;</div><div class="line">	CookieManager cookieManager = CookieManager.getInstance();</div><div class="line">	Iterator iterator = cookies.entrySet().iterator();</div><div class="line">	while (iterator.hasNext()) &#123;</div><div class="line">		Map.Entry entry = (Map.Entry) iterator.next();</div><div class="line">		cookieManager.setCookie(url, entry.getValue() + &quot;=&quot; + entry.getKey());</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><p>主要使用在，服务端需要客户端的数据以确定客户身份的情况！比如：登录同步(我们通过HttpUrlConnection获得的Cookie设置给WebView就可以实现登录同步了)等等，还有许多应用需要你去发掘…</p>
+        <h2 id="一、密钥长度"><a href="#一、密钥长度" class="headerlink" title="一、密钥长度"></a>一、密钥长度</h2><p>1、密钥是指谁？<br>　　首先我们说的“密钥”是指谁？由于RSA密钥是（公钥+模值）、（私钥+模值）分组分发的，单独给对方一个公钥或私钥是没有任何用处，所以我们说的“密钥”其实是它们两者中的其中一组。但我们说的“密钥长度”一般只是指模值的位长度。目前主流可选值：1024、2048、3072、4096…<br><a id="more"></a><br>2、模值主流长度是多少？<br>　　目前主流密钥长度至少都是1024bits以上，低于1024bit的密钥已经不建议使用（安全问题）。那么上限在哪里？没有上限，多大都可以使用。所以，主流的模值是1024位，实际运算结果可能会略小于1024bits，注意，这个值不是绝对的，跟素数的生成算法有关系，只是告诉素数生成器“帮我生成一个接近1024位的素数而已”，然后生成器“好，给您一个，这个差不多1024位”。<br>　　素数生成器这么厉害？说生成1024位就会出个1024位的大整数？真实的情况是素数生成器也只是在1024bits对应的整数附近进行“摸索”而已，大家其实都不容易，又要快又要准确又要随机性，那么素数生成器也只能应付一下，找到1024位的算是好运，没找到1024位，1023位也照样送出来：）。<br>3、公钥指数如何确定？<br>　　公钥指数是随意选的，但目前行业上公钥指数普遍选的都是65537（0x10001，5bits），该值是除了1、3、5、17、257之外的最小素数，为什么不选的大一点？当然可以，只是考虑到既要满足相对安全、又想运算的快一点（加密时），PKCS#1的一个建议值而已。有意的把公钥指数选的小一点，但是对应私钥指数肯定很大，意图也很明确，大家都要用公钥加密，所以大家时间很宝贵，需要快一点，您一个人私钥解密，时间长一点就多担待，少数服从多数的典型应用。<br>4、私钥指数如何确定？<br>　　公钥指数随意选，那么私钥就不能再随意选了，只能根据算法公式（ed%k=1，k=(p-1)(q-1)）进行运算出来。那么私钥指数会是多少位？根据ed关系，私钥d=(x*k+1)/e，所以单看这个公式，私钥指数似乎也不是唯一结果，可能大于也可能小于1024bits的，但我们习惯上也是指某个小于1024bits的大整数。包括前文的公钥指数，在实际运算和存储时为方便一般都是按照标准位长进行使用，前面不足部分补0填充，所以，使用保存和转换这些密钥需要注意统一缓冲区的长度。</p>
+<h2 id="二、明文长度"><a href="#二、明文长度" class="headerlink" title="二、明文长度"></a>二、明文长度</h2><p>　　网上有说明文长度小于等于密钥长度（Bytes）-11，这说法本身不太准确，会给人感觉RSA 1024只能加密117字节长度明文。实际上，RSA算法本身要求加密内容也就是明文长度m必须0<m<n，也就是说内容这个大整数不能超过n，否则就出错。那么如果m=0是什么结果？普遍rsa加密器会直接返回全0结果。如果m>n，运算就会出错？！那怎么办？且听下文分解。<br>　　所以，RSA实际可加密的明文长度最大也是1024bits，但问题就来了：<br>如果小于这个长度怎么办？就需要进行padding，因为如果没有padding，用户无法确分解密后内容的真实长度，字符串之类的内容问题还不大，以0作为结束符，但对二进制数据就很难理解，因为不确定后面的0是内容还是内容结束符。<br>　　只要用到padding，那么就要占用实际的明文长度，于是才有117字节的说法。我们一般使用的padding标准有NoPPadding、OAEPPadding、PKCS1Padding等，其中PKCS#1建议的padding就占用了11个字节。<br>如果大于这个长度怎么办？很多算法的padding往往是在后边的，但PKCS的padding则是在前面的，此为有意设计，有意的把第一个字节置0以确保m的值小于n。这样，128字节（1024bits）-减去11字节正好是117字节，但对于RSA加密来讲，padding也是参与加密的，所以，依然按照1024bits去理解，但实际的明文只有117字节了。<br>　　关于PKCS#1 padding规范可参考：RFC2313 chapter 8.1，我们在把明文送给RSA加密器前，要确认这个值是不是大于n，也就是如果接近n位长，那么需要先padding再分段加密。除非我们是“定长定量自己可控可理解”的加密不需要padding。</m<n，也就是说内容这个大整数不能超过n，否则就出错。那么如果m=0是什么结果？普遍rsa加密器会直接返回全0结果。如果m></p>
+<h2 id="三、密文长度"><a href="#三、密文长度" class="headerlink" title="三、密文长度"></a>三、密文长度</h2><p>　　密文长度就是给定符合条件的明文加密出来的结果位长，这个可以确定，加密后的密文位长跟密钥的位长度是相同的，因为加密公式：C=(P^e)%n<br>　　所以，C最大值就是n-1，所以不可能超过n的位数。尽管可能小于n的位数，但从传输和存储角度，仍然是按照标准位长来进行的，所以，即使我们加密一字节的明文，运算出来的结果也要按照标准位长来使用（当然了，除非我们能再采取措施区分真实的位长，一般不在考虑）。至于明文分片多次加密，自然密文长度成倍增长，但已不属于一次加密的问题，不能放到一起考虑。</p>
 
       
     </div>
@@ -430,9 +423,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/WebView/" rel="tag"># WebView</a>
-          
-            <a href="/tags/Cookie/" rel="tag"># Cookie</a>
+            <a href="/tags/RSA/" rel="tag"># RSA</a>
           
         </div>
       
@@ -441,8 +432,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/01/23/ubuntu上构建简单的基于http的文件共享服务/" rel="next" title="ubuntu上构建简单的基于http的文件共享服务">
-                <i class="fa fa-chevron-left"></i> ubuntu上构建简单的基于http的文件共享服务
+              <a href="/2017/03/08/android热修复技能Andfix/" rel="next" title="Android热修复技能Andfix">
+                <i class="fa fa-chevron-left"></i> Android热修复技能Andfix
               </a>
             
           </div>
@@ -450,10 +441,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/01/24/带你彻底理解java中的-、equal、hashCode/" rel="prev" title="带你彻底理解java中的==、equal、hashCode">
-                带你彻底理解java中的==、equal、hashCode <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -479,8 +466,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/01/23/Android-WebView-Cookie机制详解/"
-           data-title="Android WebView Cookie机制详解" data-url="http://huanglei365.com/2017/01/23/Android-WebView-Cookie机制详解/">
+      <div class="ds-thread" data-thread-key="2017/03/21/转-RSA参数理解/"
+           data-title="(转)RSA密钥长度、明文长度和密文长度" data-url="http://huanglei365.com/2017/03/21/转-RSA参数理解/">
       </div>
     
   </div>
@@ -591,7 +578,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie机制"><span class="nav-number">1.</span> <span class="nav-text">Cookie机制?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何给Android中的WebView设置Cookie信息？"><span class="nav-number">2.</span> <span class="nav-text">如何给Android中的WebView设置Cookie信息？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用场景"><span class="nav-number">3.</span> <span class="nav-text">使用场景</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、密钥长度"><span class="nav-number">1.</span> <span class="nav-text">一、密钥长度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、明文长度"><span class="nav-number">2.</span> <span class="nav-text">二、明文长度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、密文长度"><span class="nav-number">3.</span> <span class="nav-text">三、密文长度</span></a></li></ol></div>
             
 
           </div>
